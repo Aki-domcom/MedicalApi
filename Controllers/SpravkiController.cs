@@ -9,9 +9,27 @@ public class SpravkiController : ControllerBase
 {
     private static List<Spravka> _spravki = new List<Spravka>();
 
-    [HttpGet]
-    public List<Spravka> GetAll()
+    // Идея 1: Тестовые данные (Пункт 7). Заполняем базу сразу при старте
+    static SpravkiController()
     {
+        _spravki.Add(new Spravka { Id = 1, Name = "Справка в бассейн", PatientId = 1, Price = 1500 });
+        _spravki.Add(new Spravka { Id = 2, Name = "Больничный лист", PatientId = 1, Price = 0 });
+        _spravki.Add(new Spravka { Id = 3, Name = "Водительская комиссия", PatientId = 2, Price = 5000 });
+    }
+
+    // Идея 2: Поиск и фильтрация через Query string (Пункт 7)
+    // Доступно как обычный /api/spravki или с фильтром /api/spravki?patientId=1
+    [HttpGet]
+    public List<Spravka> GetAll(int? patientId)
+    {
+        // Если параметр patientId передан в адресе
+        if (patientId != null)
+        {
+            // Отбираем и возвращаем только справки этого конкретного пациента
+            return _spravki.Where(s => s.PatientId == patientId).ToList();
+        }
+
+        // Если параметра нет, возвращаем абсолютно все справки клиники
         return _spravki;
     }
 
@@ -32,7 +50,7 @@ public class SpravkiController : ControllerBase
         string? error = ValidateSpravka(spravka);
         if (error != null)
         {
-            return BadRequest(error); // Вернет 400, если данные неверны или пациент не найден
+            return BadRequest(error);
         }
 
         spravka.Id = _spravki.Count + 1;
@@ -56,7 +74,7 @@ public class SpravkiController : ControllerBase
         }
 
         existingSpravka.Name = spravkaData.Name;
-        existingSpravka.PatientId = spravkaData.PatientId; // Обновляем PatientId (Задание 4)
+        existingSpravka.PatientId = spravkaData.PatientId;
         existingSpravka.Price = spravkaData.Price;
 
         return Ok(existingSpravka);
@@ -75,25 +93,28 @@ public class SpravkiController : ControllerBase
         return NoContent();
     }
 
-    // Метод проверки данных, обновленный под Задание 4
     private string? ValidateSpravka(Spravka spravka)
     {
         if (string.IsNullOrWhiteSpace(spravka.Name))
         {
             return "Название справки не может быть пустым";
         }
-        if (spravka.Price <= 0)
+        if (spravka.Price < 0) // Разрешаем 0 для бесплатных больничных
         {
-            return "Цена должна быть больше 0";
+            return "Цена не может быть отрицательной";
         }
 
-        // Проверка из Задания 4: ищем, есть ли такой пациент в базе регистратуры
-        bool patientExists = PatientsController.PatientsList.Any(p => p.Id == spravka.PatientId);
-        if (!patientExists)
+        // Проверяем существование пациента, только если в картотеке PatientsController уже кто-то есть
+        // (чтобы наши заготовленные тестовые данные не ломали запуск, если список пациентов пуст)
+        if (PatientsController.PatientsList.Any())
         {
-            return $"Пациент с ID {spravka.PatientId} не найден в картотеке клиники. Сначала создайте пациента.";
+            bool patientExists = PatientsController.PatientsList.Any(p => p.Id == spravka.PatientId);
+            if (!patientExists)
+            {
+                return $"Пациент с ID {spravka.PatientId} не найден в картотеке клиники.";
+            }
         }
 
-        return null; // Всё хорошо
+        return null;
     }
 }
