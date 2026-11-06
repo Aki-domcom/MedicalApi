@@ -1,15 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "szXiXmStvvTWqyyZXg/sVn+cYny+34fBsOQRMdg0R4GjdhuFT7MAeGHWi64RpXmxauzQfb83jyqU6I7aNn44SA==",
+  "dgSpecHash": "Yb3bkdaBLHs=",
   "success": true,
   "projectFilePath": "/home/user/RiderProjects/MedicalSystem1/MedicalApi/MedicalApi.csproj",
   "expectedPackageFiles": [
-    "/home/user/.nuget/packages/microsoft.aspnetcore.openapi/10.0.14/microsoft.aspnetcore.openapi.10.0.14.nupkg.sha512",
     "/home/user/.nuget/packages/microsoft.openapi/2.7.5/microsoft.openapi.2.7.5.nupkg.sha512",
     "/home/user/.nuget/packages/swashbuckle.aspnetcore.swagger/10.3.1/swashbuckle.aspnetcore.swagger.10.3.1.nupkg.sha512",
     "/home/user/.nuget/packages/swashbuckle.aspnetcore.swaggergen/10.3.1/swashbuckle.aspnetcore.swaggergen.10.3.1.nupkg.sha512",
-    "/home/user/.nuget/packages/swashbuckle.aspnetcore.swaggerui/10.3.1/swashbuckle.aspnetcore.swaggerui.10.3.1.nupkg.sha512",
-    "/home/user/.nuget/packages/system.text.json/8.0.5/system.text.json.8.0.5.nupkg.sha512"
+    "/home/user/.nuget/packages/swashbuckle.aspnetcore.swaggerui/10.3.1/swashbuckle.aspnetcore.swaggerui.10.3.1.nupkg.sha512"
   ],
   "logs": []
 }

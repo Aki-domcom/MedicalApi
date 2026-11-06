@@ -1,11 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "5BNn9udUEUcc1E/+jjZr4LY1yQZB8G7aREch9FWaNEA=",
-  "Source": "MedicalApi",
-  "BasePath": "_content/MedicalApi",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
-}
+{"Version":1,"Hash":"q5TsEG6uC9jnhbQu7e/tYls+yqulJWgSyujL4oeRq+8=","Source":"MedicalApi","BasePath":"/","Mode":"Root","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}
